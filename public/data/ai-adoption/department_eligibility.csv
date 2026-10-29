@@ -1,0 +1,22 @@
+department,product,department_headcount,eligible_employees
+Customer Support,Atlas Assistant,110,95
+Engineering,Atlas Assistant,85,75
+Marketing,Atlas Assistant,45,40
+Finance,Atlas Assistant,40,36
+Legal,Atlas Assistant,20,18
+Operations,Atlas Assistant,90,78
+HR,Atlas Assistant,30,26
+Customer Support,Forge Code,110,0
+Engineering,Forge Code,85,80
+Marketing,Forge Code,45,0
+Finance,Forge Code,40,0
+Legal,Forge Code,20,0
+Operations,Forge Code,90,12
+HR,Forge Code,30,0
+Customer Support,Scribe Meetings,110,100
+Engineering,Scribe Meetings,85,60
+Marketing,Scribe Meetings,45,40
+Finance,Scribe Meetings,40,30
+Legal,Scribe Meetings,20,0
+Operations,Scribe Meetings,90,80
+HR,Scribe Meetings,30,0

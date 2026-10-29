@@ -1,0 +1,73 @@
+month,department,budget_usd
+2026-01,Customer Support,25
+2026-01,Engineering,90
+2026-01,Marketing,25
+2026-01,Finance,35
+2026-01,Legal,80
+2026-01,Operations,25
+2026-02,Customer Support,25
+2026-02,Engineering,90
+2026-02,Marketing,25
+2026-02,Finance,35
+2026-02,Legal,80
+2026-02,Operations,25
+2026-03,Customer Support,25
+2026-03,Engineering,95
+2026-03,Marketing,25
+2026-03,Finance,35
+2026-03,Legal,85
+2026-03,Operations,25
+2026-04,Customer Support,25
+2026-04,Engineering,95
+2026-04,Marketing,25
+2026-04,Finance,40
+2026-04,Legal,85
+2026-04,Operations,25
+2026-05,Customer Support,25
+2026-05,Engineering,100
+2026-05,Marketing,25
+2026-05,Finance,40
+2026-05,Legal,90
+2026-05,Operations,25
+2026-06,Customer Support,25
+2026-06,Engineering,105
+2026-06,Marketing,30
+2026-06,Finance,40
+2026-06,Legal,90
+2026-06,Operations,25
+2026-07,Customer Support,25
+2026-07,Engineering,105
+2026-07,Marketing,30
+2026-07,Finance,40
+2026-07,Legal,95
+2026-07,Operations,25
+2026-08,Customer Support,25
+2026-08,Engineering,110
+2026-08,Marketing,30
+2026-08,Finance,45
+2026-08,Legal,100
+2026-08,Operations,25
+2026-09,Customer Support,25
+2026-09,Engineering,115
+2026-09,Marketing,30
+2026-09,Finance,45
+2026-09,Legal,100
+2026-09,Operations,25
+2026-10,Customer Support,25
+2026-10,Engineering,115
+2026-10,Marketing,30
+2026-10,Finance,45
+2026-10,Legal,105
+2026-10,Operations,25
+2026-11,Customer Support,25
+2026-11,Engineering,120
+2026-11,Marketing,30
+2026-11,Finance,45
+2026-11,Legal,105
+2026-11,Operations,25
+2026-12,Customer Support,25
+2026-12,Engineering,125
+2026-12,Marketing,35
+2026-12,Finance,50
+2026-12,Legal,110
+2026-12,Operations,25

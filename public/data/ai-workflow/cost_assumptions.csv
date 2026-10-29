@@ -1,0 +1,7 @@
+parameter,value,unit,basis,description
+labor_rate_usd_per_hour,38,USD per hour,fictional assumption,"Fully loaded labor rate applied to handling, review, and rework minutes"
+ai_variable_cost_usd_per_task,0.45,USD per AI-assisted task,fictional assumption,Model usage cost per AI-assisted task
+escalation_cost_usd_per_task,18,USD per escalated task,fictional assumption,Additional senior-staff time when a task is escalated
+ai_software_usd_per_month,2400,USD per month,fictional assumption,Pilot tooling subscription for the pilot teams
+implementation_one_time_usd,22000,USD one-time,fictional assumption,Integration and configuration cost
+training_one_time_usd,7500,USD one-time,fictional assumption,Staff training cost

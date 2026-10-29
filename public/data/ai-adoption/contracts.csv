@@ -1,0 +1,4 @@
+product,seat_price_usd_per_month,committed_seats,term_start,renewal_date,notice_days,floor_seats_at_renewal,price_basis
+Atlas Assistant,30,280,2026-01-01,2026-12-31,60,200,fictional assumption
+Forge Code,39,80,2025-11-01,2026-10-31,45,60,fictional assumption
+Scribe Meetings,18,180,2026-03-01,2027-02-28,30,120,fictional assumption

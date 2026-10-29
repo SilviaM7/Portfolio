@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio — Business analytics for AI investment, adoption, and value</title>
+    <meta
+      name="description"
+      content="Portfolio of an MIS student: business analytics for AI investment, adoption, and value. Interactive analyses built on clearly labeled synthetic data."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Portfolio — Business analytics for AI investment, adoption, and value" />
+    <meta
+      property="og:description"
+      content="Interactive business-analytics demonstrations on synthetic data: AI spend, license adoption, and workflow value."
+    />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <!-- Apply the saved theme before first paint to avoid a flash. Mirrors src/lib/theme.ts. -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('portfolio-theme');
+          var dark =
+            saved === 'dark' ||
+            (saved !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.classList.toggle('dark', dark);
+        } catch (e) {
+          /* storage unavailable: fall back to CSS default */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>This portfolio needs JavaScript to run its interactive analyses.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
