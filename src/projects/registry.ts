@@ -54,7 +54,7 @@ export const projects: ProjectSummary[] = [
     businessQuestion: 'Under what conditions does an AI-assisted workflow produce enough value to justify its cost?',
     tags: ['pilot', 'quality', 'break-even', 'payback', 'sensitivity', 'labor'],
     methods: ['Time and quality comparison', 'Break-even and payback', 'Sensitivity analysis'],
-    status: 'in-development',
+    status: 'available',
   },
 ];
 

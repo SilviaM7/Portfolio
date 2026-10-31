@@ -59,7 +59,7 @@ export function buildWorkflowFindings(data: WorkflowDataset): Finding[] {
     out.push({
       kind: 'scenario',
       title: 'Break-even volume versus observed volume',
-      text: `At the observed ${formatInteger(base.observedAiTasksPerMonth)} AI-assisted tasks per month, the estimated value of released capacity (${formatDecimal(all.capacityHoursPerMonth)} hours per month, valued at ${formatUsd(assumptions.laborRateUsdPerHour)} per hour) is ${formatUsd(all.estimatedGrossValueUsdPerMonth)} per month, against ${formatUsd(assumptions.softwareUsdPerMonth)} per month of software. Estimated break-even is about ${all.breakEvenAiTasksPerMonth === null ? 'not reachable' : `${formatInteger(all.breakEvenAiTasksPerMonth)} AI-assisted tasks per month`}. Routing only low and medium complexity to AI lowers that to about ${scoped.breakEvenAiTasksPerMonth === null ? 'not reachable' : formatInteger(scoped.breakEvenAiTasksPerMonth)}}.`,
+      text: `At the observed ${formatInteger(base.observedAiTasksPerMonth)} AI-assisted tasks per month, the estimated value of released capacity (${formatDecimal(all.capacityHoursPerMonth)} hours per month, valued at ${formatUsd(assumptions.laborRateUsdPerHour)} per hour) is ${formatUsd(all.estimatedGrossValueUsdPerMonth)} per month, against ${formatUsd(assumptions.softwareUsdPerMonth)} per month of software. Estimated break-even is about ${all.breakEvenAiTasksPerMonth === null ? 'not reachable' : `${formatInteger(all.breakEvenAiTasksPerMonth)} AI-assisted tasks per month`}. Routing only low and medium complexity to AI lowers that to about ${scoped.breakEvenAiTasksPerMonth === null ? 'not reachable' : formatInteger(scoped.breakEvenAiTasksPerMonth)}.`,
     });
     out.push({
       kind: 'scenario',
@@ -85,4 +85,18 @@ export function buildWorkflowFindings(data: WorkflowDataset): Finding[] {
     ].join(' '),
   });
   return out;
+}
+
+/** One-paragraph summary of the full dataset, generated from computed values. */
+/** "4.5 fewer minutes" / "1.2 more minutes" from a saving (positive = AI-assisted faster). */
+function timeDiff(saved: number | null): string {
+  if (saved === null) return 'an unknown number of minutes (not enough data)';
+  return `${formatDecimal(Math.abs(saved))} ${saved >= 0 ? 'fewer' : 'more'} minutes`;
+}
+
+export function buildWorkflowExecutiveSummary(data: WorkflowDataset): string {
+  const cmp = compareProcesses(data.records, data.records, data.assumptions);
+  const base = buildScenarioBase(data.records, data.assumptions);
+  const est = base === null ? null : estimateValue(base, defaultValueParams(base));
+  return `Full dataset: ${formatInteger(cmp.baseline.tasks)} baseline and ${formatInteger(cmp.ai.tasks)} AI-assisted tasks. AI-assisted tasks took ${timeDiff(cmp.minutesSavedStandardized)} after adjusting for task mix (${timeDiff(cmp.minutesSavedRaw)} unadjusted), with a pass rate of ${formatPercent(cmp.ai.passRate)} versus ${formatPercent(cmp.baseline.passRate)}.${est === null ? '' : ` At the observed volume, the estimated value of released time is ${formatUsd(est.estimatedGrossValueUsdPerMonth)} per month against ${formatUsd(data.assumptions.softwareUsdPerMonth)} of software, and estimated break-even is ${est.breakEvenAiTasksPerMonth === null ? 'not reachable' : `about ${formatInteger(est.breakEvenAiTasksPerMonth)} AI-assisted tasks per month`}.`} The sections below show where the pilot helped, what volume and assumptions it needs to pay for itself, and why released time is not cash; all of it is a demonstration on synthetic data.`;
 }

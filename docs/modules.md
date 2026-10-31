@@ -9,7 +9,7 @@ Each module ends in something that builds, deploys, and works on its own. Do the
 - Validation + analysis + generated findings for all three projects; live-data service. 119 tests pass.
 - Site/résumé config placeholders (`src/config/`).
 
-## M1 — Site shell (deployable portfolio, no projects yet) — WRITTEN, awaiting first full build
+## M1 — Site shell (deployable portfolio, no projects yet) — DONE (committed)
 Vite/Tailwind/shadcn(Base UI) setup, `npm install` + lockfile, hash router, layout, skip link, light/dark theme,
 Home, About, Contact (hidden-when-empty links, résumé links), GitHub Actions workflow, README basics.
 Checks: `npm run check`, subpath build `VITE_BASE=/portfolio/`, keyboard/theme/mobile pass.
@@ -22,10 +22,10 @@ Verified in the build sandbox (shimmed Recharts/Base UI/Papa Parse, headless Chr
 provider filters update KPIs/tables/budget variance, reset, invalid date range alert, tabs, table sort and pagination, and the
 by-model chart table sums to the KPI. NOT verified there: TSX type check, lint, Tailwind styling, real Recharts rendering, mobile layout.
 
-## M3 — AI Adoption & License Utilization — WRITTEN 2026-10-31, awaiting your `npm run check` (build) and visual review
+## M3 — AI Adoption & License Utilization — DONE (committed)
 Detail view only (reuses M2 components): window selector, utilization charts, reclaim scenario with contract terms.
 
-## M4 — AI Workflow Value & Quality
+## M4 — AI Workflow Value & Quality — WRITTEN 2026-10-31, awaiting your `npm run check` (build) and visual review
 Detail view only: complexity and trend charts, scenario controls, break-even/payback, sensitivity table.
 
 ## M5 — Live data, polish, and final verification

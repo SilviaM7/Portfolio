@@ -8,4 +8,5 @@ import { lazy, type ComponentType, type LazyExoticComponent } from 'react';
 export const projectViews: Record<string, LazyExoticComponent<ComponentType>> = {
   'ai-spend': lazy(() => import('./ai-spend/SpendView')),
   'ai-adoption': lazy(() => import('./ai-adoption/AdoptionView')),
+  'ai-workflow': lazy(() => import('./ai-workflow/WorkflowView')),
 };
