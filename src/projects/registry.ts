@@ -44,7 +44,7 @@ export const projects: ProjectSummary[] = [
     businessQuestion: 'Are AI software licenses being used, and how should the company adjust procurement or enablement?',
     tags: ['licenses', 'seats', 'utilization', 'procurement', 'contracts', 'enablement'],
     methods: ['Utilization and cost per active seat', 'Cohort comparison', 'Contract-aware reclaim scenario'],
-    status: 'in-development',
+    status: 'available',
   },
   {
     id: 'ai-workflow',

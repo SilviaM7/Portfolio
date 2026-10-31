@@ -78,3 +78,12 @@ export function buildAdoptionFindings(data: AdoptionDataset): Finding[] {
   });
   return out;
 }
+
+/** One-paragraph summary of the full dataset with the default window, generated from computed values. */
+export function buildAdoptionExecutiveSummary(data: AdoptionDataset): string {
+  const built = defaultSeats(data);
+  if (built === null) return 'The telemetry file contains no usable weeks, so seat utilization cannot be measured.';
+  const { window, seats } = built;
+  const s = summarizeAdoption(seats, data.eligibility, data.contracts);
+  return `Full dataset, as of ${formatDate(window.end)} with a ${window.weeks.length}-week observation window: ${formatInteger(s.assignedSeats)} paid seats are held against ${formatInteger(s.eligibleSeats)} policy-eligible seats. ${formatInteger(s.activeSeats)} seats were active (${formatPercent(s.utilization)} utilization) and ${formatInteger(s.inactiveSeats)} were inactive, costing ${formatUsd(s.inactiveSeatCostUsdPerMonth)} per month at fictional list prices. The sections below show where adoption is lower, how the measurement window changes the picture, and what contract terms allow at renewal; all of it is a demonstration on synthetic data, and usage is not a measure of value.`;
+}

@@ -14,7 +14,7 @@ Vite/Tailwind/shadcn(Base UI) setup, `npm install` + lockfile, hash router, layo
 Home, About, Contact (hidden-when-empty links, résumé links), GitHub Actions workflow, README basics.
 Checks: `npm run check`, subpath build `VITE_BASE=/portfolio/`, keyboard/theme/mobile pass.
 
-## M2 — Project framework + AI Spend (first complete project) — WRITTEN, awaiting your `npm run check`
+## M2 — Project framework + AI Spend (first complete project) — DONE (committed)
 Shared components (KPI cards, chart card with data table, filter bar, sortable/paginated table, quality and
 methodology panels, loading/error/empty states), gallery with search and category filters, AI Spend detail view.
 Checks: KPIs reconcile to CSV, filters update every chart/KPI/table, CSV download, refreshed deep link.
@@ -22,7 +22,7 @@ Verified in the build sandbox (shimmed Recharts/Base UI/Papa Parse, headless Chr
 provider filters update KPIs/tables/budget variance, reset, invalid date range alert, tabs, table sort and pagination, and the
 by-model chart table sums to the KPI. NOT verified there: TSX type check, lint, Tailwind styling, real Recharts rendering, mobile layout.
 
-## M3 — AI Adoption & License Utilization
+## M3 — AI Adoption & License Utilization — WRITTEN 2026-10-31, awaiting your `npm run check` (build) and visual review
 Detail view only (reuses M2 components): window selector, utilization charts, reclaim scenario with contract terms.
 
 ## M4 — AI Workflow Value & Quality

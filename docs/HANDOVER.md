@@ -1,6 +1,6 @@
 # Handover: AI portfolio (GitHub Pages)
 
-Last updated: 2026-10-29. Local repo: `/Users/sm/github/Portfolio` (git repository). Project docs also live in the Claude Project "My Portfolio Github".
+Last updated: 2026-10-31. Local repo: `/Users/sm/github/Portfolio` (git repository). Project docs also live in the Claude Project "My Portfolio Github".
 
 ## 1. What this is
 A frontend-only portfolio for an MIS student, positioned as "Business analytics for AI investment, adoption, and value."
@@ -17,12 +17,14 @@ Source of truth for requirements: `requirements.md`. Rules for AI assistants: `A
 |---|---|
 | Back end (seeded data, validation, analysis, findings, live-data service) | Done. 149 unit tests pass. |
 | M1 Site shell (Home, Projects, About, Contact, theme, router, deploy workflow) | Done. User runs it locally. |
-| M2 Project framework + AI Spend view | Written and applied. `npm run typecheck` passed locally. 4 lint errors fixed via lintfix zip (applied). **Awaiting the user's full `npm run check` result and a visual review of `#/projects/ai-spend`.** |
-| M3 AI Adoption & License Utilization view | Not started. |
+| M2 Project framework + AI Spend view | Done and committed (`d2f0519`). Visual review of `#/projects/ai-spend` still pending. |
+| M3 AI Adoption & License Utilization view | Written 2026-10-31, uncommitted. Verified: typecheck, lint, 161 tests (12 new), check:data, check:contrast. **Not verified: `npm run build`, real rendering, mobile, dark mode.** |
 | M4 AI Workflow Value & Quality view | Not started. |
 | M5 Live-data page, accessibility pass, `docs/metrics.md`, `docs/data-dictionary.md`, final README, verification report | Not started. |
 
-Registry (`src/projects/registry.ts`): only `ai-spend` is `status: 'available'`. Flip the others when their view works.
+Registry (`src/projects/registry.ts`): `ai-spend` and `ai-adoption` are `status: 'available'`. Flip `ai-workflow` when its view works.
+
+M3 files: `src/projects/ai-adoption/{viewModel.ts, viewModel.test.ts, content.ts, AdoptionCharts.tsx, AdoptionView.tsx}`, plus `buildAdoptionExecutiveSummary` in `findings.ts`. Design choice: the reclaim scenario ignores the department filter (contracts are company-wide) and says so on screen; everything else follows all filters.
 
 ## 4. Architecture to reuse for M3 and M4
 - Pure analysis: `src/analysis/{common,spend,adoption,workflow}.ts` (no React), with tests.
@@ -42,6 +44,7 @@ Registry (`src/projects/registry.ts`): only `ai-spend` is `status: 'available'`.
 - Not yet done from the original list: h1 focus is handled in `ProjectHeader`; adoption/workflow need the same. Add `docs/metrics.md` and `docs/data-dictionary.md` in M5.
 
 ## 6. Lessons learned (avoid repeating)
+- Claude's cloud sandbox and the desktop Linux shell may have no npm registry access. Typecheck and lint run from the Mac's `node_modules` (pure JS); tests can be compiled with `tsc` to ESM and run with `node --test` plus a small resolve hook for `@/` and extensionless imports. `vite build` cannot run there (native binaries).
 - When updating from a zip, use terminal `unzip -o <zip> -d /Users/sm/github/Portfolio`. Do NOT drag folders in Finder: "Replace" deletes sibling files (this happened once; restored with `git ls-files -d -z | xargs -0 git checkout --`).
 - Findings text must be generated from computed values and stay neutral; no hardcoded conclusions or counts in static content.
 - Blank values stay `null`, never 0.
@@ -49,8 +52,9 @@ Registry (`src/projects/registry.ts`): only `ai-spend` is `status: 'available'`.
 ## 7. Next actions, in order
 1. User runs `npm run check` (typecheck, lint, tests, check:data, check:contrast, build) and reviews `#/projects/ai-spend` in light and dark and at narrow width. Fix whatever they report.
 2. `VITE_BASE=/portfolio/ npm run build && npm run preview`: confirm deep links and CSV downloads.
-3. M3: Adoption view (window selector, utilization charts, reclaim scenario with contract terms), following the Spend pattern. Then M4, then M5.
-4. Commit M1+M2 once checks pass.
+3. User runs `npm run check` on the Mac and reviews `#/projects/ai-adoption` (light/dark, narrow width, window selector, reclaim sliders). Fix what they report, then commit M3.
+4. M4: Workflow view, following the same pattern. Then M5.
+5. Commit after each module's checks pass.
 
 ## 8. Starting prompt for the next session
-> Read `HANDOVER.md`, `AGENTS.md`, `requirements.md` and `docs/modules.md` in this repo. M1 and M2 are done and checked. Continue with M3 (AI Adoption & License Utilization view), reusing the AI Spend pattern. Run `npm run check` before reporting done.
+> Read `HANDOVER.md`, `AGENTS.md`, `requirements.md` and `docs/modules.md` in this repo. M1–M3 are done and checked. Continue with M4 (AI Workflow Value & Quality view), reusing the AI Spend and Adoption pattern. Run `npm run check` before reporting done.
