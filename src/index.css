@@ -4,47 +4,76 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design tokens. One accent colour (terracotta); everything else is neutral.
- * Contrast of text pairs is checked by `npm run check:contrast` (scripts/check-contrast.ts).
+ * Design tokens: "Sapphire Serif" palette (#0B2E4A, #0F4C81, #2C7BE5, #A8D1FF, #FFF4E6).
+ *   - Cream paper background, near-black body text, darkest sapphire for headings (the "masthead" ink).
+ *   - #0F4C81 for links, buttons, and accent text. The bright #2C7BE5 is only 3.8:1 on cream, below the 4.5:1 text minimum,
+ *     so it is used for non-text accents: focus rings and chart series.
+ *   - Pale blue #A8D1FF for dividers and borders; a lighter tint of it for side panels and table headers.
+ *   - chart-3 (ochre) and chart-4 (slate) are supporting colours so the four chart series stay distinguishable.
+ *   - destructive / warning / success (red, yellow, green) are used only for validation and feedback messages,
+ *     always with an icon and a text label as well, never colour alone.
+ * Contrast of every pair is checked by `npm run check:contrast` (scripts/check-contrast.ts).
  */
 :root {
-  --background: #faf9f7;
-  --foreground: #1c1b19;
-  --muted: #f1efea;
-  --muted-foreground: #5b5851;
-  --border: #dcd8cf;
-  --card: #ffffff;
-  --accent: #a83a0c;
+  --background: #fff4e6;
+  --foreground: #16212c;
+  --heading: #0b2e4a;
+  --muted: #eaf2fb;
+  --muted-foreground: #46566a;
+  --border: #a8d1ff;
+  --card: #fffaf2;
+  --accent: #0f4c81;
   --accent-foreground: #ffffff;
-  --accent-soft: #f7e6dd;
-  --ring: #a83a0c;
-  /* Chart series (colour-blind-safe family). Charts must ALSO use labels, markers, or patterns, never colour alone. */
-  --chart-1: #0072b2;
-  --chart-2: #c2510a;
-  --chart-3: #00805e;
-  --chart-4: #8e4585;
+  --accent-soft: #dcebfc;
+  --ring: #2c7be5;
+  /* Chart series. Charts must ALSO use labels, markers, or patterns, never colour alone. */
+  --chart-1: #0f4c81;
+  --chart-2: #2c7be5;
+  --chart-3: #a35a12;
+  --chart-4: #5e6b78;
+  /* Status colours for validation and feedback messages (shadcn-style semantic tokens). Text colour, soft background, border. */
+  --destructive: #b42318;
+  --destructive-soft: #fde8e6;
+  --destructive-border: #e8958d;
+  --warning: #7a4a00;
+  --warning-soft: #fff1c7;
+  --warning-border: #e3b341;
+  --success: #1b6b35;
+  --success-soft: #e2f3e6;
+  --success-border: #7cc491;
 }
 
 .dark {
-  --background: #141311;
-  --foreground: #f0eee9;
-  --muted: #1f1d1a;
-  --muted-foreground: #aaa69d;
-  --border: #36332e;
-  --card: #1a1917;
-  --accent: #f2926a;
-  --accent-foreground: #1a0e07;
-  --accent-soft: #33221a;
-  --ring: #f2926a;
-  --chart-1: #56b4e9;
-  --chart-2: #f08a4b;
-  --chart-3: #3fcb9b;
-  --chart-4: #d9a0d0;
+  --background: #081b2c;
+  --foreground: #f3eee6;
+  --heading: #fff4e6;
+  --muted: #10304b;
+  --muted-foreground: #b6c4d2;
+  --border: #1f4a70;
+  --card: #0c2337;
+  --accent: #a8d1ff;
+  --accent-foreground: #0b2e4a;
+  --accent-soft: #143c60;
+  --ring: #a8d1ff;
+  --chart-1: #a8d1ff;
+  --chart-2: #2c7be5;
+  --chart-3: #e9a863;
+  --chart-4: #c3ccd6;
+  --destructive: #ff9f96;
+  --destructive-soft: #3b1714;
+  --destructive-border: #a8453d;
+  --warning: #f5c75e;
+  --warning-soft: #382b0c;
+  --warning-border: #9e7616;
+  --success: #86d79d;
+  --success-soft: #0e3321;
+  --success-border: #33814c;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-heading: var(--heading);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
@@ -57,6 +86,15 @@
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
+  --color-destructive: var(--destructive);
+  --color-destructive-soft: var(--destructive-soft);
+  --color-destructive-border: var(--destructive-border);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-border: var(--warning-border);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-success-border: var(--success-border);
   --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-serif: ui-serif, 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
 }
@@ -78,6 +116,7 @@
   h1,
   h2,
   h3 {
+    color: var(--heading);
     font-family: var(--font-serif);
     letter-spacing: -0.01em;
     line-height: 1.15;
@@ -87,6 +126,12 @@
     outline: 3px solid var(--ring);
     outline-offset: 2px;
     border-radius: 2px;
+  }
+  /* Invalid form fields get a red outline in the full-strength text colour (≥ 3:1 for non-text UI). */
+  input[aria-invalid='true'],
+  select[aria-invalid='true'] {
+    border-color: var(--destructive);
+    box-shadow: inset 0 0 0 1px var(--destructive);
   }
   /* Programmatic focus targets (route headings, skip-link target) should not show a ring on click. */
   [tabindex='-1']:focus {

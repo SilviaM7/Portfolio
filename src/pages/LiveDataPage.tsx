@@ -3,6 +3,7 @@
  * Kept separate from the synthetic project data: nothing here changes any project figure.
  */
 import { useEffect, useId, useMemo, useState } from 'react';
+import { Alert, FieldMessage } from '@/components/ui/alert';
 import { Page, Section } from '@/components/layout/PageShell';
 import { Button } from '@/components/ui/button';
 import { formatDate } from '@/lib/dates';
@@ -100,21 +101,16 @@ export function LiveDataPage() {
         </div>
 
         <p className="sr-only" role="status">
-          {state.status === 'loading'
-            ? `Loading rates from ${PROVIDER.name}.`
-            : state.status === 'success'
-              ? `Loaded ${state.result.snapshot.rates.length} rates${state.result.fromCache ? ' from this tab’s cache' : ''}.`
-              : ''}
+          {state.status === 'loading' ? `Loading rates from ${PROVIDER.name}.` : ''}
         </p>
         <div className="mt-6" aria-busy={state.status === 'loading'}>
           {state.status === 'idle' && <p className="text-sm text-muted-foreground">No data loaded yet.</p>}
           {state.status === 'loading' && <p className="text-sm">Loading rates from {PROVIDER.name}…</p>}
           {state.status === 'error' && (
-            <div role="alert" className="max-w-prose rounded-md border border-border bg-muted px-4 py-3 text-sm">
-              <p className="font-medium">Could not load live rates.</p>
-              <p className="mt-1">{state.message}</p>
-              <p className="mt-1 text-muted-foreground">{errorHelp(state.kind)} The rest of the site is unaffected.</p>
-            </div>
+            <Alert tone="destructive" title="Could not load live rates" className="max-w-prose">
+              <p>{state.message}</p>
+              <p>{errorHelp(state.kind)} The rest of the site is unaffected.</p>
+            </Alert>
           )}
           {state.status === 'success' && <RatesResult result={state.result} />}
         </div>
@@ -153,6 +149,9 @@ function RatesResult({ result }: { result: LoadResult }) {
 
   return (
     <div>
+      <Alert tone="success" title={fromCache ? 'Rates shown from this tab’s cache' : `Rates loaded from ${PROVIDER.name}`} className="mb-4 max-w-prose">
+        <p>Received {formatTimestamp(snapshot.fetchedAt)}.{fromCache ? ' No new request was sent; use Refresh for the latest figures.' : ''}</p>
+      </Alert>
       <div className="overflow-x-auto rounded-lg border border-border">
         <table className="w-full border-collapse text-left text-sm">
           <caption className="px-3 py-2 text-left text-muted-foreground">
@@ -197,9 +196,7 @@ function RatesResult({ result }: { result: LoadResult }) {
           className="mt-2 min-h-11 w-full rounded-md border border-border bg-card px-3 text-sm"
         />
         {!amountValid && (
-          <p id={errorId} role="alert" className="mt-1 text-sm font-medium text-accent">
-            Enter a positive number (up to one billion).
-          </p>
+          <FieldMessage id={errorId}>Enter a positive number (up to one billion).</FieldMessage>
         )}
       </div>
       {amountValid && (

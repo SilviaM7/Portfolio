@@ -18,6 +18,7 @@ import { FindingsPanel } from '@/components/project/FindingsPanel';
 import { KpiCard, KpiGrid } from '@/components/project/KpiCard';
 import { DatasetDownloads, JumpNav, ProjectHeader, ProjectSection } from '@/components/project/ProjectFrame';
 import { QualityPanel } from '@/components/project/QualityPanel';
+import { FieldMessage } from '@/components/ui/alert';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDataset } from '@/hooks/useDataset';
@@ -115,6 +116,7 @@ function SpendAnalysis({ data }: { data: SpendDataset }) {
   const active = filterSummary(filters);
   const monthOptions = view.options.months.map((m) => ({ value: m, label: formatMonth(m) }));
   const rangeInvalid = filters.fromMonth !== null && filters.toMonth !== null && filters.fromMonth > filters.toMonth;
+  const rangeErrorId = useId();
   const set = (change: Partial<SpendFilters>) => setFilters((current) => ({ ...current, ...change }));
   const reset = () => setFilters(EMPTY_SPEND_FILTERS);
   const scope = isFiltered(filters) ? `for the current selection (${active.map((f) => `${f.label}: ${f.value}`).join(', ')})` : 'for the full dataset';
@@ -182,17 +184,17 @@ function SpendAnalysis({ data }: { data: SpendDataset }) {
           onReset={reset}
           resultText={`${formatInteger(view.events.length)} of ${formatInteger(data.events.length)} requests match`}
         >
-          <SelectField label="From month" value={filters.fromMonth} onChange={(v) => set({ fromMonth: v })} options={monthOptions} allLabel="Start of data" />
-          <SelectField label="To month" value={filters.toMonth} onChange={(v) => set({ toMonth: v })} options={monthOptions} allLabel="End of data" />
+          <SelectField label="From month" value={filters.fromMonth} onChange={(v) => set({ fromMonth: v })} options={monthOptions} allLabel="Start of data" invalid={rangeInvalid} describedBy={rangeErrorId} />
+          <SelectField label="To month" value={filters.toMonth} onChange={(v) => set({ toMonth: v })} options={monthOptions} allLabel="End of data" invalid={rangeInvalid} describedBy={rangeErrorId} />
           <SelectField label="Department" value={filters.department} onChange={(v) => set({ department: v })} options={view.options.departments.map((d) => ({ value: d, label: d }))} />
           <SelectField label="Provider" value={filters.provider} onChange={(v) => set({ provider: v })} options={view.options.providers.map((d) => ({ value: d, label: d }))} />
           <SelectField label="Model" value={filters.model} onChange={(v) => set({ model: v })} options={view.options.models.map((d) => ({ value: d, label: d }))} />
           <SelectField label="Use case" value={filters.useCase} onChange={(v) => set({ useCase: v })} options={view.options.useCases.map((d) => ({ value: d, label: d }))} />
         </FilterBar>
         {rangeInvalid && (
-          <p role="alert" className="mt-3 text-sm font-medium text-accent">
+          <FieldMessage id={rangeErrorId} className="mt-3">
             The start month is after the end month, so no data matches. Choose an earlier start or a later end.
-          </p>
+          </FieldMessage>
         )}
 
         {view.events.length === 0 ? (

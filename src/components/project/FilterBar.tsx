@@ -7,7 +7,7 @@ export interface FilterOption {
 }
 
 /** Native <select> with a visible label: the most reliable accessible control, and it works well on touch devices. */
-export function SelectField({ label, value, onChange, options, allLabel = 'All' }: { label: string; value: string | null; onChange: (value: string | null) => void; options: readonly FilterOption[]; allLabel?: string }) {
+export function SelectField({ label, value, onChange, options, allLabel = 'All', invalid = false, describedBy }: { label: string; value: string | null; onChange: (value: string | null) => void; options: readonly FilterOption[]; allLabel?: string; invalid?: boolean; describedBy?: string }) {
   const id = useId();
   return (
     <div className="flex min-w-40 flex-col gap-1">
@@ -18,6 +18,8 @@ export function SelectField({ label, value, onChange, options, allLabel = 'All' 
         id={id}
         value={value ?? ''}
         onChange={(event) => onChange(event.target.value === '' ? null : event.target.value)}
+        aria-invalid={invalid || undefined}
+        aria-describedby={invalid ? describedBy : undefined}
         className="min-h-11 rounded-md border border-border bg-card px-3 text-sm"
       >
         <option value="">{allLabel}</option>

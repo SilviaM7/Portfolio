@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Alert } from '@/components/ui/alert';
 import { cn } from '@/lib/utils';
 
 /** Standard page width and heading. `narrow` keeps long-form text at a readable measure. */
@@ -27,5 +28,9 @@ export function Section({ title, children, id }: { title: string; children: Reac
 
 /** Visible marker for content the site owner still has to fill in (see src/config). */
 export function PlaceholderNote({ children }: { children: ReactNode }) {
-  return <p className="rounded-md border border-dashed border-accent bg-accent-soft px-4 py-3 text-sm text-foreground">{children}</p>;
+  return (
+    <Alert tone="warning" title="Placeholder">
+      <p>{children}</p>
+    </Alert>
+  );
 }

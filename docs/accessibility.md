@@ -10,7 +10,7 @@ This is a checklist, not a compliance claim. **Verified** means checked with the
 - One `h1` per page; focus moves to it on every route change, including project detail pages (`data-route-heading`).
 - Skip link to `main`; labelled `nav`; `aria-current` on the active link; theme toggle exposes its state.
 - Every form control has a visible label: filters, window and dimension selects, sliders (each shows its value in an `<output>`), number inputs, and checkboxes in a `fieldset` with a `legend`.
-- Invalid input (date range, workflow volume, converter amount) shows a text message with `role="alert"`, linked with `aria-describedby` and `aria-invalid`.
+- Invalid input (date range, workflow volume, converter amount) shows a red message with an icon and a hidden "Error:" label (`role="alert"`). The field gets `aria-invalid`, a red outline, and `aria-describedby` pointing to the message. Warnings (yellow) and successes (green) use `role="status"` with their own icon and label.
 - Every chart has a heading, units and period in its subtitle, a generated text summary, and a data table. Series differ by pattern, dash, or marker shape as well as colour (hatched bars, dashed lines, square markers).
 - Live regions are short status sentences (filter result counts, scenario summary, live-data loading state). Errors use `role="alert"`, and large content is never announced as a whole.
 - External links announce "(opens in a new tab)". Links with empty or placeholder values are hidden.

@@ -22,6 +22,7 @@ Source of truth for requirements: `requirements.md`. Rules for AI assistants: `A
 | M4 AI Workflow Value & Quality view | Done. User reviewed it; committed (`b6182f9`). |
 | M5a About/Contact from résumé | Done. User reviewed, committed and pushed (`5fb3421`). |
 | M5b Live-data page | Done. User reviewed; committed (`8601254`). |
+| Palette + status colours | Done 2026-10-31: "Sapphire Serif" palette and red/yellow/green feedback messages (decisions 14–15). User reviewed. |
 | M5c Accessibility pass, docs, README, verification report | Done 2026-10-31: code-level a11y review (quieter live regions in Workflow scenario and Live data), `docs/metrics.md`, `docs/data-dictionary.md`, `docs/verification.md`, updated `docs/accessibility.md`, `docs/decisions.md`, README. Verified: typecheck, lint, 174 tests, check:data, check:contrast. |
 
 Registry (`src/projects/registry.ts`): all three projects are `status: 'available'`.

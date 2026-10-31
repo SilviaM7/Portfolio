@@ -7,6 +7,7 @@ import { FindingsPanel } from '@/components/project/FindingsPanel';
 import { KpiCard, KpiGrid } from '@/components/project/KpiCard';
 import { DatasetDownloads, JumpNav, ProjectHeader, ProjectSection } from '@/components/project/ProjectFrame';
 import { QualityPanel } from '@/components/project/QualityPanel';
+import { Alert, FieldMessage } from '@/components/ui/alert';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useDataset } from '@/hooks/useDataset';
 import { formatMonth } from '@/lib/dates';
@@ -88,6 +89,7 @@ function WorkflowAnalysis({ data }: { data: WorkflowDataset }) {
   const set = (change: Partial<WorkflowFilters>) => setFilters((current) => ({ ...current, ...change }));
   const reset = () => setFilters(EMPTY_WORKFLOW_FILTERS);
   const rangeInvalid = filters.fromMonth !== null && filters.toMonth !== null && filters.fromMonth > filters.toMonth;
+  const rangeErrorId = useId();
   const scope = isWorkflowFiltered(filters) ? `for the current selection (${active.map((a) => `${a.label}: ${a.value}`).join(', ')})` : 'for the full dataset';
   const monthOptions = view.options.months.map((m) => ({ value: m, label: formatMonth(m) }));
   const c = view.comparison;
@@ -167,16 +169,16 @@ function WorkflowAnalysis({ data }: { data: WorkflowDataset }) {
 
       <ProjectSection id="analysis" title="Analysis" intro="Filters apply to every KPI, chart, and table in this section. The value scenario below and the findings always use the full dataset.">
         <FilterBar activeFilters={active} onReset={reset} resultText={`${formatInteger(view.records.length)} of ${formatInteger(data.records.length)} tasks match`}>
-          <SelectField label="From month" value={filters.fromMonth} onChange={(v) => set({ fromMonth: v })} options={monthOptions} allLabel="Start of data" />
-          <SelectField label="To month" value={filters.toMonth} onChange={(v) => set({ toMonth: v })} options={monthOptions} allLabel="End of data" />
+          <SelectField label="From month" value={filters.fromMonth} onChange={(v) => set({ fromMonth: v })} options={monthOptions} allLabel="Start of data" invalid={rangeInvalid} describedBy={rangeErrorId} />
+          <SelectField label="To month" value={filters.toMonth} onChange={(v) => set({ toMonth: v })} options={monthOptions} allLabel="End of data" invalid={rangeInvalid} describedBy={rangeErrorId} />
           <SelectField label="Workflow" value={filters.workflow} onChange={(v) => set({ workflow: v })} options={view.options.workflows.map((w) => ({ value: w, label: w }))} />
           <SelectField label="Complexity" value={filters.complexity} onChange={(v) => set({ complexity: isComplexity(v) ? v : null })} options={COMPLEXITIES.map((x) => ({ value: x, label: x }))} />
           <SelectField label="Team" value={filters.team} onChange={(v) => set({ team: v })} options={view.options.teams.map((t) => ({ value: t, label: view.pilotTeams.includes(t) ? `${t} (pilot)` : `${t} (comparison)` }))} />
         </FilterBar>
         {rangeInvalid && (
-          <p role="alert" className="mt-3 text-sm font-medium text-accent">
+          <FieldMessage id={rangeErrorId} className="mt-3">
             The start month is after the end month, so no data matches. Choose an earlier start or a later end.
-          </p>
+          </FieldMessage>
         )}
 
         {view.records.length === 0 ? (
@@ -186,9 +188,11 @@ function WorkflowAnalysis({ data }: { data: WorkflowDataset }) {
         ) : (
           <>
             {(noAi || noBaseline) && (
-              <p className="mt-4 max-w-prose rounded-md border border-border bg-muted px-3 py-2 text-sm">
-                The selection contains only {noAi ? 'baseline' : 'AI-assisted'} tasks, so baseline-versus-AI comparisons show n/a. {noAi ? 'The pilot started in April 2026, and the comparison team never used AI assistance.' : ''}
-              </p>
+              <Alert tone="warning" title="No comparison available for this selection" className="mt-4 max-w-prose">
+                <p>
+                  The selection contains only {noAi ? 'baseline' : 'AI-assisted'} tasks, so baseline-versus-AI comparisons show n/a. {noAi ? 'The pilot started in April 2026, and the comparison team never used AI assistance.' : ''}
+                </p>
+              </Alert>
             )}
             <div className="mt-6">
               <KpiGrid label="Key metrics for the current selection">
@@ -299,9 +303,9 @@ function ScenarioPanel({ base }: { base: ScenarioBase }) {
           />
           <p className="mt-1 text-xs text-muted-foreground">Observed: about {formatInteger(base.observedAiTasksPerMonth)} AI-assisted tasks per pilot month.</p>
           {volumeInvalid && (
-            <p id={volumeErrorId} role="alert" className="mt-1 text-sm font-medium text-accent">
+            <FieldMessage id={volumeErrorId}>
               Enter a whole number from 0 to {formatInteger(MAX_VOLUME)}. The results still use {formatInteger(params.monthlyVolume)}.
-            </p>
+            </FieldMessage>
           )}
         </div>
         <fieldset>
