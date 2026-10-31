@@ -168,3 +168,15 @@ describe('createLiveDataClient', () => {
     assert.ok(seen.every((i) => i.credentials === 'omit' && !('Authorization' in (i.headers as Record<string, string>))));
   });
 });
+
+describe('real provider response (captured 2026-10-31 in a browser)', () => {
+  it('parses the exact body returned by GET /v2/rate/USD/EUR', () => {
+    const body: unknown = JSON.parse('{"base":"USD","date":"2026-10-31","quote":"EUR","rate":0.89485}');
+    assert.deepEqual(parseRateResponse(body, 'EUR'), { quote: 'EUR', rate: 0.89485, date: '2026-10-31' });
+  });
+
+  it('treats the provider error body for an unknown currency (HTTP 422) as an http error, not data', async () => {
+    const fn = (async () => new Response('{"status":422,"message":"invalid currency: XXX"}', { status: 422, headers: { 'Content-Type': 'application/json' } })) as typeof fetch;
+    await assert.rejects(createLiveDataClient({ fetchFn: fn }).load(), (e: unknown) => e instanceof LiveDataError && e.kind === 'http');
+  });
+});

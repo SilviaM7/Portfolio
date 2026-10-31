@@ -2,13 +2,14 @@
  * On-demand "Live data" service. This is the ONLY module that knows which provider is used, so replacing the
  * provider means editing this file (and its test) only.
  *
- * Provider: Frankfurter (https://frankfurter.dev). Public HTTPS API, no API key. Reference exchange rates
- * compiled from official sources (originally the European Central Bank), updated daily.
- * Endpoint used: GET https://api.frankfurter.dev/v2/rate/USD/{QUOTE}  -> JSON with a numeric `rate`.
+ * Provider: Frankfurter (https://frankfurter.dev). Public HTTPS API, no API key. Reference rates blended from
+ * central banks and official sources, updated daily.
+ * Endpoint used: GET https://api.frankfurter.dev/v2/rate/USD/{QUOTE} -> {"date","base","quote","rate"}.
  *
- * Verified from the provider's documentation: base URL, the single-pair endpoint, the `rate` field, no key required.
- * NOT verified from this build environment: browser CORS behavior and the full response body (only `rate` is relied on;
- * `date` is read when present). A failure for any reason is shown honestly to the visitor. See README "Live data".
+ * Verified 2026-10-31 against the provider's documentation and in a real browser: the endpoint and response shape
+ * above, and that a page on an unrelated origin (https://example.com) may read the responses (CORS allowed).
+ * An unknown currency returns HTTP 422. Only `rate` is required here; `date` is read when present.
+ * A failure for any reason is shown honestly to the visitor. See README "Live data".
  *
  * Security: no secrets here, and none may be added. Frontend code and VITE_* variables are public.
  */
@@ -18,7 +19,7 @@ export const PROVIDER = {
   name: 'Frankfurter',
   url: 'https://frankfurter.dev',
   baseUrl: 'https://api.frankfurter.dev',
-  description: 'Reference exchange rates compiled from official sources, updated daily on business days.',
+  description: 'Reference exchange rates blended from central banks and official sources, updated daily.',
 } as const;
 
 export const BASE_CURRENCY = 'USD';

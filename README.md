@@ -72,6 +72,14 @@ Synthetic CSVs live in `public/data/<project-id>/` and are generated determinist
 `npm run generate:data` rewrites them; `npm run check:data` fails if the committed files differ from a fresh generation.
 Total size is about 1 MB. Provider names, model names, prices, products, and headcounts are fictional.
 
+## Live data
+
+`#/live-data` fetches current USD reference rates (EUR, GBP, JPY) from [Frankfurter](https://frankfurter.dev), a free public API with no key.
+Requests are sent only when the visitor presses the button, without cookies, with an 8-second timeout, and are cached in `sessionStorage` for 10 minutes.
+If any pair fails, nothing is shown as complete: the page explains the failure and offers a retry, and the rest of the site is unaffected.
+Endpoint, response shape (`date`, `base`, `quote`, `rate`), and browser CORS access from an unrelated origin were verified on 2026-10-31.
+These rates are never used in the project analyses. The provider lives only in `src/services/exchangeRates.ts`; swapping it means editing that file and its test.
+
 ## Security and privacy
 
 No secrets belong in this repository. Frontend code and `VITE_*` environment variables are **public** in the built site. An API that requires a secret key

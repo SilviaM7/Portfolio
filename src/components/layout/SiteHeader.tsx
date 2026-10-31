@@ -6,6 +6,7 @@ import { ThemeToggle } from './ThemeToggle';
 const NAV: { label: string; href: string; matches: (route: Route) => boolean }[] = [
   { label: 'Projects', href: hrefs.projects, matches: (r) => r.name === 'projects' || r.name === 'project' },
   { label: 'About', href: hrefs.about, matches: (r) => r.name === 'about' },
+  { label: 'Live data', href: hrefs.liveData, matches: (r) => r.name === 'live-data' },
   { label: 'Contact', href: hrefs.contact, matches: (r) => r.name === 'contact' },
 ];
 

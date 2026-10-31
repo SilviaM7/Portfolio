@@ -6,6 +6,7 @@ import { site } from '@/config/site';
 import { AboutPage } from '@/pages/AboutPage';
 import { ContactPage } from '@/pages/ContactPage';
 import { HomePage } from '@/pages/HomePage';
+import { LiveDataPage } from '@/pages/LiveDataPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { ProjectDetailPage } from '@/pages/ProjectDetailPage';
 import { ProjectsPage } from '@/pages/ProjectsPage';
@@ -45,7 +46,7 @@ function renderRoute(route: Route) {
     case 'project':
       return <ProjectDetailPage id={route.id} />;
     case 'live-data':
-      return <NotFoundPage title="Live data" message="The live-data demonstration is not available yet." />;
+      return <LiveDataPage />;
     case 'not-found':
       return <NotFoundPage />;
   }
