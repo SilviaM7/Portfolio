@@ -28,7 +28,7 @@ Detail view only (reuses M2 components): window selector, utilization charts, re
 ## M4 — AI Workflow Value & Quality — DONE (committed)
 Detail view only: complexity and trend charts, scenario controls, break-even/payback, sensitivity table.
 
-## M5 — Live data, polish, and final verification (split: M5a About/Contact from résumé — DONE; M5b live-data page — WRITTEN, awaiting review; M5c docs, accessibility, README, verification)
+## M5 — Live data, polish, and final verification — DONE (M5a About/Contact, M5b live data, M5c docs/accessibility/README/verification). Live-site verification pending; see docs/verification.md
 Live-data page (button-triggered, loading/error/retry, cache, timestamp), accessibility and contrast pass,
 `docs/` (metrics, data dictionary, decisions, accessibility), final README, verification report.
 

@@ -3,7 +3,7 @@
 Last updated: 2026-10-31. Local repo: `/Users/sm/github/Portfolio` (git repository). Project docs also live in the Claude Project "My Portfolio Github".
 
 ## 1. What this is
-A frontend-only portfolio for an MIS student, positioned as "Business analytics for AI investment, adoption, and value."
+A frontend-only portfolio for an MIS graduate (Silvia Meica), positioned as "Business analytics for AI investment, adoption, and value."
 Stack: React + Vite + strict TypeScript, Tailwind v4, shadcn/ui on Base UI (no Radix), Recharts for all charts, Papa Parse, npm with committed lockfile, hash routing, GitHub Actions deploy to Pages, light/dark theme.
 Source of truth for requirements: `requirements.md`. Rules for AI assistants: `AGENTS.md` (CLAUDE.md imports it). Read both first. Key rules: all data is synthetic and labeled; never invent credentials, metrics, prices or links; never treat missing values as 0; weighted aggregates, not averaged percentages; no analytics; honest API failures.
 
@@ -21,8 +21,8 @@ Source of truth for requirements: `requirements.md`. Rules for AI assistants: `A
 | M3 AI Adoption & License Utilization view | Done. User ran checks and reviewed it; committed (`273072d`). |
 | M4 AI Workflow Value & Quality view | Done. User reviewed it; committed (`b6182f9`). |
 | M5a About/Contact from résumé | Done. User reviewed, committed and pushed (`5fb3421`). |
-| M5b Live-data page | Written 2026-10-31, uncommitted: `src/pages/LiveDataPage.tsx`, route wired in `App.tsx`, "Live data" in header nav, README section. Verified: typecheck, lint, 174 tests (2 new pin the real response). Provider endpoint, response shape and CORS verified in a real browser. **Not verified: rendering of the page itself.** |
-| M5c Accessibility pass, `docs/metrics.md`, `docs/data-dictionary.md`, final README, verification report | Not started. |
+| M5b Live-data page | Done. User reviewed; committed (`8601254`). |
+| M5c Accessibility pass, docs, README, verification report | Done 2026-10-31: code-level a11y review (quieter live regions in Workflow scenario and Live data), `docs/metrics.md`, `docs/data-dictionary.md`, `docs/verification.md`, updated `docs/accessibility.md`, `docs/decisions.md`, README. Verified: typecheck, lint, 174 tests, check:data, check:contrast. |
 
 Registry (`src/projects/registry.ts`): all three projects are `status: 'available'`.
 
@@ -44,9 +44,8 @@ M4 files: `src/projects/ai-workflow/{viewModel.ts, viewModel.test.ts, content.ts
 - Things I could not verify (sandbox had no npm registry): real Recharts rendering, Tailwind styling, mobile layout, dark-mode look, ESLint locally (user found 4 errors, since fixed). I did verify behaviour in headless Chromium with shimmed libraries: filters, KPI reconciliation, sort/pagination, tabs, reset, invalid-range alert.
 - Live-data service (Frankfurter `/v2/rate/USD/{EUR|GBP|JPY}`): verified 2026-10-31 in the built-in browser. Response `{date, base, quote, rate}`; readable cross-origin from https://example.com; unknown currency → HTTP 422. Rates are blended from many central banks (not ECB only).
 - GitHub Pages: as of 2026-10-31 https://silviam7.github.io/Portfolio/ shows "Site not found", and github.com/SilviaM7/Portfolio is not publicly visible (likely private). Free GitHub accounts only publish Pages from public repos; also check Settings → Pages → Source = GitHub Actions and the Actions run log.
-- GitHub Pages base-path behaviour (`VITE_BASE=/portfolio/ npm run build`, then preview) not yet verified by the user.
 - Résumé: `Silvia_Meica.pdf` (repo root) is the source for `src/config/site.ts` and `src/config/resume.ts`, filled in M5a. The user chose to publish it as is (phone number included) at `public/documents/Silvia-Meica-Resume.pdf`. The résumé says *graduate* (BS MIS, May 2026), so site copy says graduate, not student. GitHub link intentionally empty: the user will add the URL later in `site.ts`. Never invent personal facts.
-- Not yet done from the original list: h1 focus is handled in `ProjectHeader`; adoption/workflow need the same. Add `docs/metrics.md` and `docs/data-dictionary.md` in M5.
+- Remaining verification (needs the live site): unchecked items at the end of `docs/verification.md` (deploy, deep links under `/Portfolio/`, downloads, keyboard walkthrough, screen reader, zoom/reflow, phone, dark mode, live data from the real origin). Record results there.
 
 ## 6. Lessons learned (avoid repeating)
 - Claude's cloud sandbox and the desktop Linux shell may have no npm registry access. Typecheck and lint run from the Mac's `node_modules` (pure JS); tests can be compiled with `tsc` to ESM and run with `node --test` plus a small resolve hook for `@/` and extensionless imports. `vite build` cannot run there (native binaries).
@@ -55,10 +54,9 @@ M4 files: `src/projects/ai-workflow/{viewModel.ts, viewModel.test.ts, content.ts
 - Blank values stay `null`, never 0.
 
 ## 7. Next actions, in order
-1. User reviews `#/live-data` (M5b), then commit. User resolves why Pages is not live (repo visibility / Pages source).
-2. `VITE_BASE=/portfolio/ npm run build && npm run preview`: confirm deep links and CSV downloads.
-3. M5c: accessibility pass, `docs/metrics.md`, `docs/data-dictionary.md`, final README, verification report.
-4. Commit after each module's checks pass.
+1. User pushes, makes the repo public, and sets Settings → Pages → Source = GitHub Actions. Confirm the Actions run is green.
+2. Claude verifies the live site (https://silviam7.github.io/Portfolio/) in the built-in browser and ticks the open items in `docs/verification.md`.
+3. Optional later: user adds GitHub profile URL in `src/config/site.ts`.
 
 ## 8. Starting prompt for the next session
-> Read `HANDOVER.md`, `AGENTS.md`, `requirements.md` and `docs/modules.md` in this repo. M1–M4, M5a and M5b are done and checked. Continue with M5c (accessibility pass, docs, README, verification report). Run `npm run check` before reporting done.
+> Read `HANDOVER.md`, `AGENTS.md`, `requirements.md` and `docs/modules.md` in this repo. Development (M1–M5) is complete. Verify the live GitHub Pages site and record results in `docs/verification.md`. Run `npm run check` before reporting any change done.

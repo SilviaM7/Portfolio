@@ -324,7 +324,10 @@ function ScenarioPanel({ base }: { base: ScenarioBase }) {
         Reset scenario assumptions
       </button>
 
-      <div className="mt-6" aria-live="polite">
+      <p className="sr-only" role="status">
+        {`Estimated net value ${formatUsd(e.estimatedNetValueUsdPerMonth)} per month; cash view ${formatUsd(e.cashNetUsdPerMonth)} per month; estimated payback: ${payback(e.paybackMonthsEstimated)}.`}
+      </p>
+      <div className="mt-6">
         <KpiGrid label="Scenario results">
           <KpiCard label="AI-routed tasks" value={`${formatInteger(e.aiRoutedTasksPerMonth)}/mo`} definition="Volume × adoption share, limited to the selected complexity levels." />
           <KpiCard label="Capacity released" value={`${formatDecimal(e.capacityHoursPerMonth)} h/mo`} definition="Staff hours freed per month. Capacity, not cash." />

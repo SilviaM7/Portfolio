@@ -1,27 +1,44 @@
-# Portfolio: business analytics for AI investment, adoption, and value
+# Silvia Meica: business analytics for AI investment, adoption, and value
 
-A frontend-only portfolio (React + Vite + TypeScript + Tailwind, shadcn/ui on Base UI, Recharts, Papa Parse) hosted on GitHub Pages.
-All project data is **synthetic**; see `AGENTS.md` for the project rules and `docs/modules.md` for the build plan and current status.
+A frontend-only portfolio (React + Vite + strict TypeScript + Tailwind, shadcn/ui on Base UI, Recharts, Papa Parse) hosted on GitHub Pages.
+Three interactive projects show how business questions about AI spend, license adoption, and workflow pilots turn into validated data, defined metrics, scenarios, and recommendations with stated limits.
+All project data is **synthetic** and labeled as such. Project rules for contributors and AI assistants are in `AGENTS.md`.
 
-## Status
+## What is on the site
 
-Built in modules (see `docs/modules.md`). **M1 (site shell) and M2 (project framework + AI Spend) are written**: Home, gallery, About, Contact, theme, hash routing, deploy workflow, and the AI Spend project view.
-The Adoption and Workflow project views and the live-data page arrive in M3–M5. Data, validation, analysis, findings, and the live-data service
-already exist with tests (`src/analysis`, `src/projects/*`, `src/services`).
+| Page | Route | What it shows |
+|---|---|---|
+| Home, Projects | `#/`, `#/projects` | Introduction and a searchable, filterable project gallery |
+| AI Spend & Consumption | `#/projects/ai-spend` | Spend drivers, budget variance, cost per completed task, anomalies, illustrative projection, savings scenarios |
+| AI Adoption & License Utilization | `#/projects/ai-adoption` | Seat utilization over a selectable window, cohort and department adoption, a contract-aware reclaim scenario |
+| AI Workflow Value & Quality | `#/projects/ai-workflow` | Baseline vs AI-assisted time and quality, break-even, payback (estimated value vs cash), sensitivity |
+| Live data | `#/live-data` | Current USD reference exchange rates, fetched only when the visitor asks |
+| About, Contact | `#/about`, `#/contact` | Résumé-based background, contact links, résumé download |
 
-> **Not yet verified in a full build.** The environment this was written in could not reach the npm registry, so dependencies were never installed:
-> `npm run check` (type check, lint, tests, build) has **not** been run end to end, and `package-lock.json` does not exist yet.
-> Run the steps under "First run" and fix anything they report before publishing.
+Every project page has an executive summary, the dataset with downloads, field and metric definitions, filters that update every KPI, chart, and table, charts with text summaries and data tables, generated findings, a recommendation, limitations, and a data-quality report.
+
+## Documentation
+
+| File | Contents |
+|---|---|
+| `docs/metrics.md` | Every metric with unit, period, denominator, and assumptions |
+| `docs/data-dictionary.md` | Each CSV's grain, keys, columns, units, missing-value rules, and seeded issues |
+| `docs/decisions.md` | Architecture decisions and their trade-offs |
+| `docs/accessibility.md` | Accessibility checklist: what is verified and what is not |
+| `docs/verification.md` | What was checked before release, how, and what remains unverified |
+| `docs/modules.md`, `docs/HANDOVER.md` | Build plan and handover notes |
 
 ## First run
 
 Requires Node 22+ (`.nvmrc`).
 
 ```bash
-npm install          # creates package-lock.json: commit it (CI uses npm ci)
+npm ci               # installs exactly what package-lock.json lists (same as CI)
 npm run check        # typecheck + lint + tests + data check + contrast check + build
 npm run dev          # http://localhost:5173
 ```
+
+After changing dependencies, run `npm install` and commit the updated `package-lock.json`.
 
 Scripts: `dev`, `build`, `preview`, `typecheck`, `lint`, `test`, `generate:data`, `check:data`, `check:contrast`, `check`.
 
@@ -46,7 +63,7 @@ Before publishing, check the PDF for a full home address, a personal phone numbe
 
 ## Deploy to GitHub Pages
 
-1. Push to a repository's `main` branch.
+1. Make the repository public (GitHub Pages on a free account only publishes from public repositories) and push to `main`.
 2. In the repository: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 3. The workflow `.github/workflows/deploy.yml` runs on every push to `main` (and manually): `npm ci`, type check, lint, tests, data and contrast checks, build, deploy.
 
@@ -57,7 +74,7 @@ The base path is set automatically. For local builds choose it with `VITE_BASE`:
 | User/organization site | `https://USERNAME.github.io/` | `npm run build` (default `/`) |
 | Project site | `https://USERNAME.github.io/REPOSITORY/` | `VITE_BASE=/REPOSITORY/ npm run build` |
 
-Check a subpath build locally: `VITE_BASE=/portfolio/ npm run build && npm run preview`, then open `http://localhost:4173/portfolio/`.
+Check a subpath build locally: `VITE_BASE=/Portfolio/ npm run build && npm run preview`, then open `http://localhost:4173/Portfolio/` (the path must match the repository name, including capitals).
 `VITE_BASE` is only a URL path, not a secret.
 
 ### Hash routing: what to know
@@ -88,6 +105,7 @@ needs a separate backend or proxy; do not put the key here, and do not use publi
 ## Troubleshooting
 
 - **Blank page or 404 for scripts/CSS on Pages**: the base path is wrong. Rebuild with the right `VITE_BASE` (the workflow does this automatically).
+- **"Site not found" at the Pages URL**: Pages is not enabled yet, the repository is private on a free account, or the last workflow run failed (see the Actions tab).
 - **Deploy job says "environment protection" or "Pages not enabled"**: set Settings → Pages → Source to *GitHub Actions*.
 - **`npm ci` fails in CI**: `package-lock.json` is missing or out of date. Run `npm install` locally and commit the lockfile.
 - **Links to LinkedIn/GitHub/résumé missing**: the value in `src/config/*` is empty, a placeholder, or not an `https://` URL.

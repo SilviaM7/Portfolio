@@ -99,7 +99,14 @@ export function LiveDataPage() {
           )}
         </div>
 
-        <div className="mt-6" aria-live="polite" aria-busy={state.status === 'loading'}>
+        <p className="sr-only" role="status">
+          {state.status === 'loading'
+            ? `Loading rates from ${PROVIDER.name}.`
+            : state.status === 'success'
+              ? `Loaded ${state.result.snapshot.rates.length} rates${state.result.fromCache ? ' from this tab’s cache' : ''}.`
+              : ''}
+        </p>
+        <div className="mt-6" aria-busy={state.status === 'loading'}>
           {state.status === 'idle' && <p className="text-sm text-muted-foreground">No data loaded yet.</p>}
           {state.status === 'loading' && <p className="text-sm">Loading rates from {PROVIDER.name}…</p>}
           {state.status === 'error' && (
@@ -196,7 +203,7 @@ function RatesResult({ result }: { result: LoadResult }) {
         )}
       </div>
       {amountValid && (
-        <ul className="mt-3 space-y-1 text-sm" aria-live="polite">
+        <ul className="mt-3 space-y-1 text-sm">
           {snapshot.rates.map((r) => (
             <li key={r.quote} className="tabular-nums">
               {amount.toLocaleString('en-US', { style: 'currency', currency: BASE_CURRENCY })} ≈ {(amount * r.rate).toLocaleString('en-US', { style: 'currency', currency: r.quote })}
