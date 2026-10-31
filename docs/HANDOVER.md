@@ -19,8 +19,10 @@ Source of truth for requirements: `requirements.md`. Rules for AI assistants: `A
 | M1 Site shell (Home, Projects, About, Contact, theme, router, deploy workflow) | Done. User runs it locally. |
 | M2 Project framework + AI Spend view | Done and committed (`d2f0519`). Visual review of `#/projects/ai-spend` still pending. |
 | M3 AI Adoption & License Utilization view | Done. User ran checks and reviewed it; committed (`273072d`). |
-| M4 AI Workflow Value & Quality view | Written 2026-10-31, uncommitted. Verified: typecheck, lint, 172 tests (11 new), check:data, check:contrast. **Not verified: `npm run build`, real rendering, mobile, dark mode.** |
-| M5 Live-data page, accessibility pass, `docs/metrics.md`, `docs/data-dictionary.md`, final README, verification report | Not started. |
+| M4 AI Workflow Value & Quality view | Done. User reviewed it; committed (`b6182f9`). |
+| M5a About/Contact from résumé | Written 2026-10-31, uncommitted. Verified: typecheck, lint, 172 tests. Awaiting the user's visual review of `#/about` and `#/contact`. |
+| M5b Live-data page | Not started. |
+| M5c Accessibility pass, `docs/metrics.md`, `docs/data-dictionary.md`, final README, verification report | Not started. |
 
 Registry (`src/projects/registry.ts`): all three projects are `status: 'available'`.
 
@@ -42,7 +44,7 @@ M4 files: `src/projects/ai-workflow/{viewModel.ts, viewModel.test.ts, content.ts
 - Things I could not verify (sandbox had no npm registry): real Recharts rendering, Tailwind styling, mobile layout, dark-mode look, ESLint locally (user found 4 errors, since fixed). I did verify behaviour in headless Chromium with shimmed libraries: filters, KPI reconciliation, sort/pagination, tabs, reset, invalid-range alert.
 - Live-data service (Frankfurter `/v2/rate/USD/{EUR|GBP|JPY}`): CORS and full response shape unverified; it relies only on `rate` (optional `date`). Needs a real browser test in M5.
 - GitHub Pages base-path behaviour (`VITE_BASE=/portfolio/ npm run build`, then preview) not yet verified by the user.
-- Résumé supplied: `Silvia_Meica.pdf` in the repo root is the user's résumé (confirmed 2026-10-31). Use it as the only source for About/Contact content in M5 (`src/config/site.ts`, `src/config/resume.ts`); leave placeholders for anything it does not state, and never invent personal facts.
+- Résumé: `Silvia_Meica.pdf` (repo root) is the source for `src/config/site.ts` and `src/config/resume.ts`, filled in M5a. The user chose to publish it as is (phone number included) at `public/documents/Silvia-Meica-Resume.pdf`. The résumé says *graduate* (BS MIS, May 2026), so site copy says graduate, not student. GitHub link intentionally empty: the user will add the URL later in `site.ts`. Never invent personal facts.
 - Not yet done from the original list: h1 focus is handled in `ProjectHeader`; adoption/workflow need the same. Add `docs/metrics.md` and `docs/data-dictionary.md` in M5.
 
 ## 6. Lessons learned (avoid repeating)
@@ -52,10 +54,10 @@ M4 files: `src/projects/ai-workflow/{viewModel.ts, viewModel.test.ts, content.ts
 - Blank values stay `null`, never 0.
 
 ## 7. Next actions, in order
-1. User runs `npm run check` on the Mac and reviews `#/projects/ai-workflow` (filters incl. Team C, scenario controls, volume validation, payback chart, light/dark, narrow width). Fix what they report, then commit M4.
+1. User reviews `#/about` and `#/contact` (M5a), then commit.
 2. `VITE_BASE=/portfolio/ npm run build && npm run preview`: confirm deep links and CSV downloads.
-3. M5: About/Contact from the résumé, live-data page, accessibility pass, `docs/metrics.md`, `docs/data-dictionary.md`, final README, verification report.
+3. M5b: live-data page. M5c: accessibility pass, `docs/metrics.md`, `docs/data-dictionary.md`, final README, verification report.
 4. Commit after each module's checks pass.
 
 ## 8. Starting prompt for the next session
-> Read `HANDOVER.md`, `AGENTS.md`, `requirements.md` and `docs/modules.md` in this repo. M1–M4 are done and checked. Continue with M5 (About/Contact from `Silvia_Meica.pdf`, live-data page, accessibility pass, docs, README, verification report). Run `npm run check` before reporting done.
+> Read `HANDOVER.md`, `AGENTS.md`, `requirements.md` and `docs/modules.md` in this repo. M1–M4 and M5a are done and checked. Continue with M5b (live-data page), then M5c (accessibility pass, docs, README, verification report). Run `npm run check` before reporting done.

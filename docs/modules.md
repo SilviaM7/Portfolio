@@ -25,10 +25,10 @@ by-model chart table sums to the KPI. NOT verified there: TSX type check, lint, 
 ## M3 — AI Adoption & License Utilization — DONE (committed)
 Detail view only (reuses M2 components): window selector, utilization charts, reclaim scenario with contract terms.
 
-## M4 — AI Workflow Value & Quality — WRITTEN 2026-10-31, awaiting your `npm run check` (build) and visual review
+## M4 — AI Workflow Value & Quality — DONE (committed)
 Detail view only: complexity and trend charts, scenario controls, break-even/payback, sensitivity table.
 
-## M5 — Live data, polish, and final verification
+## M5 — Live data, polish, and final verification (split: M5a About/Contact from résumé — WRITTEN, awaiting review; M5b live-data page; M5c docs, accessibility, README, verification)
 Live-data page (button-triggered, loading/error/retry, cache, timestamp), accessibility and contrast pass,
 `docs/` (metrics, data dictionary, decisions, accessibility), final README, verification report.
 

@@ -36,19 +36,19 @@ export interface SiteConfig {
 }
 
 export const site: SiteConfig = {
-  name: '[Your Name]',
-  role: 'Management Information Systems student · business analytics',
-  siteTitle: '[Your Name] — Business analytics for AI investment, adoption, and value',
+  name: 'Silvia Meica',
+  role: 'Management Information Systems graduate · business analytics',
+  siteTitle: 'Silvia Meica — Business analytics for AI investment, adoption, and value',
   description:
-    'Portfolio of a Management Information Systems student: business analytics for AI investment, adoption, and value, shown through interactive analyses on clearly labeled synthetic data.',
+    'Portfolio of Silvia Meica, a Management Information Systems graduate: business analytics for AI investment, adoption, and value, shown through interactive analyses on clearly labeled synthetic data.',
   headline: 'Business analytics for AI investment, adoption, and value.',
   intro:
     'I turn business questions about AI spending, software licenses, and workflow pilots into validated data, clearly defined metrics, and recommendations with their limits stated. The projects below are interactive demonstrations built on synthetic data.',
-  location: '',
+  location: 'Atlanta, GA',
   contact: {
-    email: '[your-email@example.com]',
-    linkedin: '',
-    github: '',
+    email: 'meicasilvia7@gmail.com',
+    linkedin: 'https://www.linkedin.com/in/silviameica',
+    github: '', // Add your full GitHub profile URL here (https://github.com/<username>); empty hides the button.
   },
   availability: '',
 };

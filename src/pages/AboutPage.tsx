@@ -2,7 +2,7 @@ import { Page, PlaceholderNote, Section } from '@/components/layout/PageShell';
 import { demonstratedSkills, resume } from '@/config/resume';
 import { isPlaceholder, site } from '@/config/site';
 
-const KIND_LABEL = { professional: 'Professional experience', project: 'Project', coursework: 'Coursework' } as const;
+const KIND_LABEL = { professional: 'Professional experience', project: 'Academic project', coursework: 'Coursework', leadership: 'Leadership & community' } as const;
 
 export function AboutPage() {
   const educationFilled = resume.education.some((e) => !isPlaceholder(e.school));
@@ -27,9 +27,19 @@ export function AboutPage() {
             </li>
           ))}
         </ul>
+        {resume.certifications.length > 0 && (
+          <>
+            <h3 className="mt-6 text-lg font-semibold">Certifications</h3>
+            <ul className="mt-2 list-disc pl-5 text-sm text-muted-foreground">
+              {resume.certifications.map((c) => (
+                <li key={c}>{c}</li>
+              ))}
+            </ul>
+          </>
+        )}
       </Section>
 
-      <Section title="Experience">
+      <Section title="Projects, experience, and leadership">
         {resume.experience.length === 0 ? (
           <PlaceholderNote>Add your experience, coursework, and personal projects in src/config/resume.ts. Nothing is shown here until you do, so no experience is implied.</PlaceholderNote>
         ) : (
@@ -38,7 +48,7 @@ export function AboutPage() {
               <li key={`${entry.organization}-${entry.title}`}>
                 <p className="text-xs tracking-wide text-muted-foreground uppercase">{KIND_LABEL[entry.kind]}</p>
                 <p className="font-medium">
-                  {entry.title}, {entry.organization}
+                  {entry.kind === 'project' ? entry.title : `${entry.title}, ${entry.organization}`}
                 </p>
                 <p className="text-sm text-muted-foreground">{entry.dates}</p>
                 <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
