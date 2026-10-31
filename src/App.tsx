@@ -7,6 +7,7 @@ import { AboutPage } from '@/pages/AboutPage';
 import { ContactPage } from '@/pages/ContactPage';
 import { HomePage } from '@/pages/HomePage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
+import { ProjectDetailPage } from '@/pages/ProjectDetailPage';
 import { ProjectsPage } from '@/pages/ProjectsPage';
 import { findProject } from '@/projects/registry';
 import { useRoute } from '@/lib/router';
@@ -41,11 +42,8 @@ function renderRoute(route: Route) {
       return <AboutPage />;
     case 'contact':
       return <ContactPage />;
-    case 'project': {
-      const project = findProject(route.id);
-      if (project === undefined) return <NotFoundPage title="Project not found" message="There is no project with that address." />;
-      return <NotFoundPage title={project.title} message="This project's interactive analysis is still in development." />;
-    }
+    case 'project':
+      return <ProjectDetailPage id={route.id} />;
     case 'live-data':
       return <NotFoundPage title="Live data" message="The live-data demonstration is not available yet." />;
     case 'not-found':

@@ -44,6 +44,10 @@ const PAIRS: { fg: string; bg: string; min: number; use: string }[] = [
   { fg: 'accent-foreground', bg: 'accent', min: 4.5, use: 'primary button text' },
   { fg: 'ring', bg: 'background', min: 3, use: 'focus ring (non-text)' },
   { fg: 'ring', bg: 'card', min: 3, use: 'focus ring on cards (non-text)' },
+  { fg: 'chart-1', bg: 'card', min: 3, use: 'chart series 1 (non-text)' },
+  { fg: 'chart-2', bg: 'card', min: 3, use: 'chart series 2 (non-text)' },
+  { fg: 'chart-3', bg: 'card', min: 3, use: 'chart series 3 (non-text)' },
+  { fg: 'chart-4', bg: 'card', min: 3, use: 'chart series 4 (non-text)' },
 ];
 
 let failures = 0;

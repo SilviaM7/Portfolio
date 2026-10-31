@@ -18,6 +18,11 @@
   --accent-foreground: #ffffff;
   --accent-soft: #f7e6dd;
   --ring: #a83a0c;
+  /* Chart series (colour-blind-safe family). Charts must ALSO use labels, markers, or patterns, never colour alone. */
+  --chart-1: #0072b2;
+  --chart-2: #c2510a;
+  --chart-3: #00805e;
+  --chart-4: #8e4585;
 }
 
 .dark {
@@ -31,6 +36,10 @@
   --accent-foreground: #1a0e07;
   --accent-soft: #33221a;
   --ring: #f2926a;
+  --chart-1: #56b4e9;
+  --chart-2: #f08a4b;
+  --chart-3: #3fcb9b;
+  --chart-4: #d9a0d0;
 }
 
 @theme inline {
@@ -44,6 +53,10 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-soft: var(--accent-soft);
   --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
   --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-serif: ui-serif, 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
 }

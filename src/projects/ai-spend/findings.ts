@@ -17,12 +17,7 @@ import { formatPercent, formatSignedPercent, formatUsd, formatUsdPrecise } from 
 import { formatDate, formatMonth } from '@/lib/dates';
 import type { Finding } from '../findings';
 import type { SpendDataset } from './load';
-
-/** Months that have actual usage; budgets also cover future months, which are not compared. */
-export function actualMonths(data: Pick<SpendDataset, 'events'>): string[] {
-  const withUsage = new Set(data.events.map((e) => e.month));
-  return spendFilterOptions(data.events).months.filter((m) => withUsage.has(m));
-}
+import { actualMonths } from './viewModel';
 
 function isQuarterEnd(iso: string): boolean {
   const month = Number(iso.slice(5, 7));
@@ -126,4 +121,15 @@ export function buildSpendFindings(data: SpendDataset): Finding[] {
   });
 
   return out;
+}
+
+/** One-paragraph executive summary of the FULL dataset (labeled as such where it is shown). */
+export function buildSpendExecutiveSummary(data: SpendDataset): string {
+  const months = actualMonths(data);
+  const first = months[0];
+  const last = months[months.length - 1];
+  const summary = summarizeSpend(data.events);
+  const top = spendByDimension(data.events, 'department')[0];
+  const period = first !== undefined && last !== undefined ? `${formatMonth(first)}–${formatMonth(last)}` : 'the dataset period';
+  return `Full dataset, ${period}: ${formatUsd(summary.spendUsd)} of priced spend across ${summary.requests.toLocaleString('en-US')} requests (${summary.tasks.toLocaleString('en-US')} tasks), ${formatPercent(summary.successRate)} of requests succeeded, and a completed task cost ${formatUsdPrecise(summary.costPerSuccessfulTask)} including failed attempts, retries, and abandoned tasks.${top !== undefined ? ` ${top.key} is the largest spender at ${formatPercent(top.share)} of spend.` : ''} The sections below show which drivers matter, how spend compares with budget, and which scenarios might lower cost; all of it is a demonstration on synthetic data.`;
 }

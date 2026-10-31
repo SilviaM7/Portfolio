@@ -496,7 +496,8 @@ function engagementFor(rng: Rng, product: Product, wave: string, department: str
     'Forge Code': [0.45, 0.35, 0.12, 0.08],
     'Scribe Meetings': [0.15, 0.35, 0.28, 0.22],
   };
-  let [power, regular, occasional, dormant] = base[product];
+  let [power, regular, , dormant] = base[product];
+  const occasional = base[product][2];
   const key = `${product}|${wave}`;
   if (BULK_WAVES.has(key)) { power *= 0.4; dormant *= 2.1; }
   if (FIRST_WAVES.has(key)) { power *= 1.5; dormant *= 0.5; }
@@ -627,8 +628,7 @@ function generateAdoption(): { assignments: string; activity: string; eligibilit
 // Project 3: AI Workflow Value & Quality
 // ---------------------------------------------------------------------------
 const WORKFLOWS = ['Invoice exception review', 'Customer inquiry triage', 'Contract summary drafting'] as const;
-const COMPLEXITIES = ['low', 'medium', 'high'] as const;
-type Complexity = (typeof COMPLEXITIES)[number];
+type Complexity = 'low' | 'medium' | 'high';
 const WORKFLOW_MONTHS = eachMonth('2026-01', '2026-09');
 const PILOT_START = '2026-04';
 const PILOT_TEAMS = new Set(['Team A', 'Team B']);

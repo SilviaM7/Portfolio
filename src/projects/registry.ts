@@ -34,7 +34,7 @@ export const projects: ProjectSummary[] = [
     businessQuestion: 'What drives AI spending, and which changes could improve cost efficiency without sacrificing service quality?',
     tags: ['cost', 'budget', 'tokens', 'anomalies', 'projection', 'scenarios'],
     methods: ['Budget variance', 'Cost per successful task', 'Anomaly review', 'Savings scenarios'],
-    status: 'in-development',
+    status: 'available',
   },
   {
     id: 'ai-adoption',

@@ -5,8 +5,8 @@ All project data is **synthetic**; see `AGENTS.md` for the project rules and `do
 
 ## Status
 
-Built in modules (see `docs/modules.md`). **M1 (site shell) is written**: Home, Projects preview, About, Contact, theme, hash routing, deploy workflow.
-Project detail views, the gallery search, and the live-data page arrive in M2–M5. Data, validation, analysis, findings, and the live-data service
+Built in modules (see `docs/modules.md`). **M1 (site shell) and M2 (project framework + AI Spend) are written**: Home, gallery, About, Contact, theme, hash routing, deploy workflow, and the AI Spend project view.
+The Adoption and Workflow project views and the live-data page arrive in M3–M5. Data, validation, analysis, findings, and the live-data service
 already exist with tests (`src/analysis`, `src/projects/*`, `src/services`).
 
 > **Not yet verified in a full build.** The environment this was written in could not reach the npm registry, so dependencies were never installed:
